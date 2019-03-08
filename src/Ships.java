@@ -47,6 +47,7 @@ public void reset() {
 	shipHit = false;
 	shipRevealed = false;
 	setBackground(null); 
+	setText(""); 
 }
 public boolean hasShip() {
 	return shipHit;
