@@ -17,7 +17,7 @@ public class Battleship extends JFrame {
 		private static final int GRIDSIZE = 6; 
 		private static final int NUMBEROFSHIPSPACES = 12;
 		private Ships[] [] compWater = new Ships [GRIDSIZE] [GRIDSIZE];
-		private Ships [] [] playerWater = new Ships [GRIDSIZE][GRIDSIZE];
+		//private Ships [] [] playerWater = new Ships [GRIDSIZE][GRIDSIZE];
 		private int totalPlayerHit = 0;
 		private int totalCompHit = 0; 
 		
@@ -25,7 +25,7 @@ public class Battleship extends JFrame {
 			JOptionPane.showMessageDialog(null, "Welcome to Battleship! \n Your goal is to race against the computer to see who can win! \n You must hit all 12 targets! Good luck! ");
 			initGUI(); 
 			setCompShips();
-			setPlayShips(); 
+		 
 			
 			setTitle("Battleship");
 			setSize(700,500); //pixels
@@ -49,6 +49,7 @@ public class Battleship extends JFrame {
 			JPanel centerPanel = new JPanel();
 			centerPanel.setLayout(new GridLayout(GRIDSIZE, GRIDSIZE));
 			add(centerPanel, BorderLayout.CENTER);
+		
 			
 			for (int r = 0; r < GRIDSIZE; r++) {
 				for (int c = 0; c < GRIDSIZE; c++) {
@@ -70,20 +71,20 @@ public class Battleship extends JFrame {
 				totalPlayerHit += 1;
 				compWater[row][col].reveal(true);
 				if (totalPlayerHit == NUMBEROFSHIPSPACES) {
-				String message = "You win! Do you want to play again?";
+				String message = "You are victorious this time!! Do you want to play again?";
 				promptForNewGame(message);
 			
 		} }
 			else {
 				compWater[row][col].setText("x");
 			}
-			int compRow = (int) (Math.random () * 5) +0;
-			int compCol = (int) (Math.random () * 5) +0;
-			if (playerWater[compRow][compCol].hasShip()) {
+			int realCompVal = (int) (Math.random () * 5) +0;
+			int guessCompVal = (int) (Math.random () * 5) +0;
+			if (realCompVal == guessCompVal) {
 				totalCompHit += 1;
-				JOptionPane.showMessageDialog(null, "The computer hit one of your ships! It has hit" + totalCompHit + "ships...");  
+				JOptionPane.showMessageDialog(null, "The computer hit one of your ships! It has hit " + totalCompHit + " ship(s)...");  
 				if (totalCompHit == NUMBEROFSHIPSPACES) {
-					String message = "You win! Do you want to play again?";
+					String message = "The computer is victorious! Do you really want to try again?";
 					promptForNewGame(message);
 				
 			} }
@@ -105,22 +106,9 @@ public class Battleship extends JFrame {
 				//addToNeighborsHoleCount(pickRow, pickCol);
 				//terrain[pickRow][pickCol].reveal(true);
 			}
-		private void setPlayShips() {
-			Random rand = new Random();
-			int pickRow;
-			int pickCol;
-			for (int i = 0; i < NUMBEROFSHIPSPACES; i++) {
-				do {
-					pickRow = rand.nextInt(GRIDSIZE);
-					pickCol = rand.nextInt(GRIDSIZE);
-					
-				}
-				while (playerWater[pickRow][pickCol].hasShip());
-				playerWater[pickRow][pickCol].setShip(true);
-			}
+		
 				//addToNeighborsHoleCount(pickRow, pickCol);
-				//terrain[pickRow][pickCol].reveal(true);
-			}
+				//terrain[pickRow][pickCol].reveal(true)
 		private void showShips() {
 			for (int row = 0; row <GRIDSIZE; row++){
 				for ( int col = 0; col <GRIDSIZE; col++  ) {
@@ -147,7 +135,7 @@ public class Battleship extends JFrame {
 					compWater[row][col].reset(); 
 				} }
 			setCompShips(); 
-			setPlayShips(); 
+			//setPlayShips(); 
 			totalCompHit = 0; 
 			totalPlayerHit = 0; 
 		}
